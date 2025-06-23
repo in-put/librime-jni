@@ -33,12 +33,12 @@ option(YAML_CPP_INSTALL "" OFF)
 add_subdirectory(librime/deps/yaml-cpp)
 
 # enable compress for leveldb
-option(SNAPPY_BUILD_TESTS "" OFF)
-option(SNAPPY_BUILD_BENCHMARKS "" OFF)
-option(SNAPPY_INSTALL "" OFF)
-add_subdirectory(snappy)
+# option(SNAPPY_BUILD_TESTS "" OFF)
+# option(SNAPPY_BUILD_BENCHMARKS "" OFF)
+# option(SNAPPY_INSTALL "" OFF)
+# add_subdirectory(snappy)
 
-set(HAVE_SNAPPY TRUE)
+# set(HAVE_SNAPPY TRUE)
 option(LEVELDB_BUILD_TESTS "" OFF)
 option(LEVELDB_BUILD_BENCHMARKS "" OFF)
 option(LEVELDB_INSTALL "" OFF)
@@ -50,7 +50,7 @@ target_compile_options(
 
 set(LIBMARISA marisa)
 option(USE_SYSTEM_MARISA "" ON)
-add_subdirectory(OpenCC)
+add_subdirectory(${CMAKE_SOURCE_DIR}/librime/deps/opencc)
 include(OpenccWorkarounds)
 
 set(X11Keysym "${CMAKE_SOURCE_DIR}/librime/include")

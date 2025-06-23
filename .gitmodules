@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: 2015 - 2024 Rime community
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+[submodule "librime"]
+	path = librime
+	url = https://github.com/rime/librime.git
+[submodule "librime-lua"]
+	path = librime-lua
+	url = https://github.com/hchunhui/librime-lua
+	ignore = dirty
+[submodule "librime-lua-deps"]
+	path = librime-lua-deps
+	url = https://github.com/hchunhui/librime-lua
+	branch = thirdparty
+[submodule "librime-octagram"]
+	path = librime-octagram
+	url = https://github.com/lotem/librime-octagram.git
+[submodule "librime-predict"]
+	path = librime-predict
+	url = https://github.com/rime/librime-predict
