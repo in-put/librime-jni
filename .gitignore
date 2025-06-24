@@ -62,6 +62,7 @@ CMakeUserPresets.json
 #cmake-build-*
 
 build/
+build-android/
 output/
 boost/
 boost-*.tar.xz

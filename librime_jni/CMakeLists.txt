@@ -14,6 +14,6 @@ target_include_directories(rime_jni PRIVATE
 )
 
 install(TARGETS rime_jni
-  LIBRARY DESTINATION lib
+  LIBRARY DESTINATION "jni_lib/${ANDROID_ABI}"
   PUBLIC_HEADER DESTINATION include
 )

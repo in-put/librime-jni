@@ -10,7 +10,7 @@
 
 #include <string>
 
-static inline void throwJavaException(JNIEnv *env, const char *msg) {
+static inline void throwJavaException(JNIEnv* env, const char* msg) {
   jclass c = env->FindClass("java/lang/Exception");
   env->ThrowNew(c, msg);
   env->DeleteLocalRef(c);
@@ -18,31 +18,31 @@ static inline void throwJavaException(JNIEnv *env, const char *msg) {
 
 class CString {
  private:
-  JNIEnv *env_;
+  JNIEnv* env_;
   jstring str_;
-  const char *chr_;
+  const char* chr_;
 
  public:
-  CString(JNIEnv *env, jstring str)
+  CString(JNIEnv* env, jstring str)
       : env_(env), str_(str), chr_(env->GetStringUTFChars(str, nullptr)) {}
 
   ~CString() { env_->ReleaseStringUTFChars(str_, chr_); }
 
   operator std::string() { return chr_; }
 
-  operator const char *() { return chr_; }
+  operator const char*() { return chr_; }
 
-  const char *operator*() { return chr_; }
+  const char* operator*() { return chr_; }
 };
 
 template <typename T = jobject>
 class JRef {
  private:
-  JNIEnv *env_;
+  JNIEnv* env_;
   T ref_;
 
  public:
-  JRef(JNIEnv *env, jobject ref) : env_(env), ref_(reinterpret_cast<T>(ref)) {}
+  JRef(JNIEnv* env, jobject ref) : env_(env), ref_(reinterpret_cast<T>(ref)) {}
 
   ~JRef() { env_->DeleteLocalRef(ref_); }
 
@@ -53,21 +53,22 @@ class JRef {
 
 class JString {
  private:
-  JNIEnv *env_;
+  JNIEnv* env_;
   jstring jstring_;
 
-  static inline jstring toJString(JNIEnv *env, const char *chars) {
-    if (chars == nullptr) return nullptr;
+  static inline jstring toJString(JNIEnv* env, const char* chars) {
+    if (chars == nullptr)
+      return nullptr;
     auto u16str = utf8::utf8to16(chars);
-    return env->NewString(reinterpret_cast<const jchar *>(u16str.data()),
+    return env->NewString(reinterpret_cast<const jchar*>(u16str.data()),
                           static_cast<int>(u16str.length()));
   }
 
  public:
-  JString(JNIEnv *env, const char *chars)
+  JString(JNIEnv* env, const char* chars)
       : env_(env), jstring_(toJString(env, chars)) {}
 
-  JString(JNIEnv *env, const std::string &string)
+  JString(JNIEnv* env, const std::string& string)
       : JString(env, string.c_str()) {}
 
   ~JString() { env_->DeleteLocalRef(jstring_); }
@@ -79,24 +80,24 @@ class JString {
 
 class JEnv {
  private:
-  JNIEnv *env = nullptr;
+  JNIEnv* env = nullptr;
 
  public:
-  explicit JEnv(JavaVM *jvm) {
-    if (jvm->GetEnv(reinterpret_cast<void **>(&env), JNI_VERSION_1_6) ==
+  explicit JEnv(JavaVM* jvm) {
+    if (jvm->GetEnv(reinterpret_cast<void**>(&env), JNI_VERSION_1_6) ==
         JNI_EDETACHED) {
       jvm->AttachCurrentThread(&env, nullptr);
     }
   }
 
-  operator JNIEnv *() { return env; }
+  operator JNIEnv*() { return env; }
 
-  JNIEnv *operator->() { return env; }
+  JNIEnv* operator->() { return env; }
 };
 
 class GlobalRefSingleton {
  public:
-  JavaVM *jvm;
+  JavaVM* jvm;
 
   jclass Object;
 
@@ -140,8 +141,8 @@ class GlobalRefSingleton {
   jclass KeyEvent;
   jmethodID KeyEventInit;
 
-  explicit GlobalRefSingleton(JavaVM *jvm_) : jvm(jvm_) {
-    JNIEnv *env;
+  explicit GlobalRefSingleton(JavaVM* jvm_) : jvm(jvm_) {
+    JNIEnv* env;
     jvm->AttachCurrentThread(&env, nullptr);
 
     Object = reinterpret_cast<jclass>(
@@ -223,4 +224,4 @@ class GlobalRefSingleton {
   [[nodiscard]] JEnv AttachEnv() const { return JEnv(jvm); }
 };
 
-extern GlobalRefSingleton *GlobalRef;
+extern GlobalRefSingleton* GlobalRef;

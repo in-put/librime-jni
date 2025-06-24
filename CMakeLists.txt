@@ -15,7 +15,7 @@ if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
 elseif (${CMAKE_BUILD_TYPE} STREQUAL "Release")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g0 -Oz -flto -fdata-sections -ffunction-sections")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g0 -Oz -flto -fdata-sections -ffunction-sections -fvisibility=hidden")
-  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -g0 -Oz -flto -fdata-sections -ffunction-sections  -Wl,--exclude-libs,ALL -fvisibility=hidden")
+  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -g0 -Oz -flto -fdata-sections -ffunction-sections -Wl,--exclude-libs,ALL -fvisibility=hidden")
 endif ()
 
 set(ANDROID_STL c++_static)
