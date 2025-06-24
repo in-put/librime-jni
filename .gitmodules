@@ -20,3 +20,6 @@
 [submodule "librime-predict"]
 	path = librime-predict
 	url = https://github.com/rime/librime-predict
+[submodule "snappy"]
+	path = snappy
+	url = https://github.com/google/snappy.git
