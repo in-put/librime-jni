@@ -107,9 +107,10 @@ def build_project(args):
     # 准备构建目录
     build_dir = config["build_dir"]
     # 创建构建目录
-    build_path = Path(build_dir)
+    build_path = Path(build_dir) / config["arch"]
     if not build_path.exists():
         build_path.mkdir(parents=True, exist_ok=True)
+    build_dir = str(build_path)
 
     # 生成 CMake 命令
     cmake_cmd = ["cmake", ".", "-B", build_dir, "-G", "Ninja"]
@@ -124,7 +125,6 @@ def build_project(args):
             "-DCMAKE_ANDROID_NDK_TOOLCHAIN_VERSION=clang",
             "-DCMAKE_SYSTEM_NAME=Android",
             "-DCMAKE_SYSTEM_VERSION=14",
-            "-DANDROID_STL=c++_shared",
         ]
     )
 
@@ -220,7 +220,9 @@ def main():
     # build 命令
     build_parser = subparsers.add_parser("build", help="构建项目")
     build_parser.add_argument("--ndk", help="Android NDK 路径")
-    build_parser.add_argument("--arch", help="目标架构")
+    build_parser.add_argument(
+        "--arch", choices=["armeabi-v7a", "arm64-v8a", "x86", "x86_64"], help="目标架构"
+    )
     build_parser.add_argument("--release", action="store_true", help="发布构建")
     build_parser.add_argument("--debug", action="store_true", help="调试构建")
     build_parser.add_argument("--min-api", type=int, help="最低 Android API 级别")
