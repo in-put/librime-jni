@@ -154,7 +154,7 @@ def build_project(args):
     subprocess.call(build_cmd)
 
 
-def clean_project():
+def clean_project(args):
     """清理构建目录"""
     config = DEFAULT_CONFIG.copy()
 
