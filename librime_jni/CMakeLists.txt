@@ -13,8 +13,7 @@ target_include_directories(rime_jni PRIVATE
   "${Opencc_INCLUDE_PATH}"
 )
 
-file(GLOB public_header_files ${CMAKE_CURRENT_SOURCE_DIR}/librime_jni/*.h)
-install(
-  FILES ${public_header_files}
-  DESTINATION include
+install(TARGETS rime_jni
+  LIBRARY DESTINATION lib
+  PUBLIC_HEADER DESTINATION include
 )
