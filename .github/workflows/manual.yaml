@@ -67,14 +67,17 @@ jobs:
         run: python3 make.py build --arch x86_64
 
       - run: |
-          mkdir artifacts
+          mkdir -p artifacts/opencc
           cp -r output/include artifacts/include
           cp -r output/jniLibs artifacts/lib
+          python3 opencc.py
+          cp OpenCC/data/dictionary/*.txt artifacts/opencc
+          cp OpenCC/data/config/*.json artifacts/opencc
 
       - name: Upload JNI artifact
         uses: actions/upload-artifact@v4
         with:
-          name: librime_jni
+          name: prebuilt
           path: artifacts
           # keep 90 days
           retention-days: 90
@@ -82,7 +85,7 @@ jobs:
       - name: Compress artifacts
         run: |
           cd artifacts
-          zip -r librime_jni.zip include lib
+          zip -r prebuilt.zip include lib
 
       - name: Release
         uses: "marvinpinto/action-automatic-releases@latest"
@@ -90,7 +93,7 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "prebuilt"
           prerelease: true
-          files: artifacts/librime_jni.zip
+          files: artifacts/prebuilt.zip
 
       - name: Save JNI cache
         id: cache-jni-save

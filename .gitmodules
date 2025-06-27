@@ -27,3 +27,7 @@
 	path = librime-qjs
 	url = https://github.com/HuangJian/librime-qjs
 	ignore = dirty
+[submodule "OpenCC"]
+	path = OpenCC
+	url = https://github.com/BYVoid/OpenCC.git
+	ignore = dirty
