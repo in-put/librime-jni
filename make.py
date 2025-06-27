@@ -125,6 +125,7 @@ def build_project(args):
             "-DCMAKE_ANDROID_NDK_TOOLCHAIN_VERSION=clang",
             "-DCMAKE_SYSTEM_NAME=Android",
             "-DCMAKE_SYSTEM_VERSION=14",
+            "-DCMAKE_EXPORT_COMPILE_COMMANDS=1",
         ]
     )
 
