@@ -141,7 +141,7 @@ def build_project(args):
 
     # 运行 CMake 命令
     res = subprocess.run(cmake_cmd)
-    if res != 0:
+    if res.returncode != 0:
         print("错误: CMake 配置失败")
         sys.exit(1)
 
@@ -153,13 +153,13 @@ def build_project(args):
     print("开始构建")
     print("=" * 50 + "\n")
     res = subprocess.run(build_cmd)
-    if res != 0:
+    if res.returncode != 0:
         print("错误: 构建失败")
         sys.exit(1)
 
     build_cmd[1] = "--install"
     res = subprocess.run(build_cmd)
-    if res != 0:
+    if res.returncode != 0:
         print("错误: 安装失败")
         sys.exit(1)
 
