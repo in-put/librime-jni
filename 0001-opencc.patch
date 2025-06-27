@@ -1,0 +1,25 @@
+From a9c9cef8be2df08446c227da9bd0a626de7edc08 Mon Sep 17 00:00:00 2001
+From: nopdan <cxprcn@gmail.com>
+Date: Fri, 27 Jun 2025 11:12:11 +0800
+Subject: [PATCH] cmake: Comment add_subdirectory(data)
+
+---
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 1acb75a..450957a 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -222,7 +222,7 @@ endif()
+ 
+ add_subdirectory(src)
+ add_subdirectory(doc)
+-add_subdirectory(data)
++# add_subdirectory(data)
+ add_subdirectory(test)
+ 
+ ######## Testing
+-- 
+2.48.1.windows.1
+
