@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 # if you want to add some new plugins, add them to librime_jni/rime_jni.cc too
-set(RIME_PLUGINS librime-lua librime-octagram librime-predict)
+set(RIME_PLUGINS librime-lua librime-octagram librime-predict librime-qjs)
 
 # symlink plugins
 foreach(plugin ${RIME_PLUGINS})
@@ -20,6 +20,9 @@ if(NOT EXISTS "${CMAKE_SOURCE_DIR}/librime/plugins/librime-lua/thirdparty")
        COPY_ON_ERROR SYMBOLIC)
 endif()
 
+# librime-qjs
+include_directories("${CMAKE_SOURCE_DIR}/librime/deps/leveldb/include")
+
 option(BUILD_TEST "" OFF)
 option(BUILD_STATIC "" ON)
 add_subdirectory(librime)
@@ -31,3 +34,6 @@ target_compile_options(
 
 target_compile_options(
   rime-octagram-objs PRIVATE "-ffile-prefix-map=${CMAKE_CURRENT_SOURCE_DIR}=.")
+
+target_compile_options(
+  librime-qjs-objs PRIVATE "-ffile-prefix-map=${CMAKE_CURRENT_SOURCE_DIR}=.")

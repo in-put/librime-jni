@@ -17,12 +17,14 @@ extern void rime_require_module_lua();
 extern void rime_require_module_octagram();
 extern void rime_require_module_predict();
 extern void rime_require_module_proto();
+extern void rime_require_module_qjs();
 // librime is compiled as a static library, we have to link modules explicitly
 static void declare_librime_module_dependencies() {
   rime_require_module_lua();
   rime_require_module_octagram();
   rime_require_module_predict();
   rime_require_module_proto();
+  rime_require_module_qjs();
 }
 
 class Rime {
