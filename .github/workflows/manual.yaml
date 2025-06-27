@@ -27,15 +27,18 @@ jobs:
           submodules: recursive
           fetch-depth: 0
 
-      - name: Restore JNI cache
+      - name: Cache JNI dependencies
         if: ${{ !github.event.inputs.clean }}
-        id: cache-jni-restore
-        uses: actions/cache/restore@v4
+        id: cache-jni
+        uses: actions/cache@v4
         with:
           path: |
             build-android
             boost
-          key: ${{ runner.os }}-jni
+          key: ${{ runner.os }}-jni-${{ hashFiles('make.py', '**/CMakeLists.txt', '*.patch') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-jni-${{ hashFiles('make.py', '**/CMakeLists.txt', '*.patch') }}-
+            ${{ runner.os }}-jni-
 
       - name: Fetch submodules
         run: |
@@ -105,12 +108,3 @@ jobs:
           automatic_release_tag: "prebuilt"
           prerelease: true
           files: artifacts/prebuilt.zip
-
-      - name: Save JNI cache
-        id: cache-jni-save
-        uses: actions/cache/save@v4
-        with:
-          path: |
-            build-android
-            boost
-          key: ${{ runner.os }}-jni
