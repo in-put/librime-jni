@@ -1,11 +1,12 @@
-From a9c9cef8be2df08446c227da9bd0a626de7edc08 Mon Sep 17 00:00:00 2001
+From c974ee988f6136d26286140f0de134874aec2e9f Mon Sep 17 00:00:00 2001
 From: nopdan <cxprcn@gmail.com>
 Date: Fri, 27 Jun 2025 11:12:11 +0800
-Subject: [PATCH] cmake: Comment add_subdirectory(data)
+Subject: [PATCH] opencc
 
 ---
- CMakeLists.txt | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ CMakeLists.txt     | 2 +-
+ src/CMakeLists.txt | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
 index 1acb75a..450957a 100644
@@ -20,6 +21,16 @@ index 1acb75a..450957a 100644
  add_subdirectory(test)
  
  ######## Testing
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 75eda02..bc7191a 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -205,4 +205,4 @@ endif()
+ 
+ # Subdir
+ 
+-add_subdirectory(tools)
++# add_subdirectory(tools)
 -- 
 2.48.1.windows.1
 

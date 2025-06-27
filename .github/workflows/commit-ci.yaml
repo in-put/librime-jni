@@ -58,15 +58,24 @@ jobs:
         with:
           ndk-version: r26d
 
-      # `make debug` works not well on Windows
-      - name: Build
-        run: |
-          python3 make.py build --arch armeabi-v7a
-          python3 make.py build --arch arm64-v8a
-          python3 make.py build --arch x86
-          python3 make.py build --arch x86_64
+      - name: Setup cmake
+        uses: jwlawson/actions-setup-cmake@v2
+        with:
+          cmake-version: "3.18.x"
 
-          - run: |
+      - name: Build arm64-v8a
+        run: python3 make.py build --arch arm64-v8a
+
+      - name: Build armeabi-v7a
+        run: python3 make.py build --arch armeabi-v7a
+
+      - name: Build x86
+        run: python3 make.py build --arch x86
+
+      - name: Build x86_64
+        run: python3 make.py build --arch x86_64
+
+      - run: |
           mkdir artifacts
           cp -r output/include artifacts/include
           cp -r output/jniLibs artifacts/lib
