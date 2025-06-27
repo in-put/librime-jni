@@ -1,4 +1,4 @@
-From c974ee988f6136d26286140f0de134874aec2e9f Mon Sep 17 00:00:00 2001
+From caceac4a182f8d3cf8cc5f97cc1b2ce67f990852 Mon Sep 17 00:00:00 2001
 From: nopdan <cxprcn@gmail.com>
 Date: Fri, 27 Jun 2025 11:12:11 +0800
 Subject: [PATCH] opencc
@@ -6,7 +6,8 @@ Subject: [PATCH] opencc
 ---
  CMakeLists.txt     | 2 +-
  src/CMakeLists.txt | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ src/Segments.hpp   | 9 ++++++++-
+ 3 files changed, 10 insertions(+), 3 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
 index 1acb75a..450957a 100644
@@ -31,6 +32,27 @@ index 75eda02..bc7191a 100644
  
 -add_subdirectory(tools)
 +# add_subdirectory(tools)
+diff --git a/src/Segments.hpp b/src/Segments.hpp
+index 21c3981..cb58d2b 100644
+--- a/src/Segments.hpp
++++ b/src/Segments.hpp
+@@ -53,8 +53,15 @@ public:
+     managed.push_back(str);
+   }
+ 
+-  class iterator : public std::iterator<std::input_iterator_tag, const char*> {
++  class iterator {
+   public:
++    // 直接定义迭代器所需的类型别名
++    using iterator_category = std::input_iterator_tag;
++    using value_type = const char*;
++    using difference_type = std::ptrdiff_t;
++    using pointer = const char**;
++    using reference = const char*&;
++
+     iterator(const Segments* const _segments, size_t _cursor)
+         : segments(_segments), cursor(_cursor) {}
+ 
 -- 
 2.48.1.windows.1
 
