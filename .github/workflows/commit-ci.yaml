@@ -56,7 +56,7 @@ jobs:
       - name: Setup Android NDK
         uses: nttld/setup-ndk@v1
         with:
-          ndk-version: r26d
+          ndk-version: r25
 
       - name: Setup cmake
         uses: jwlawson/actions-setup-cmake@v2

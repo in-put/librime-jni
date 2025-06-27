@@ -15,7 +15,7 @@ from pathlib import Path
 # 默认配置
 DEFAULT_CONFIG = {
     "arch": "arm64-v8a",
-    "min_api": 21,
+    "min_api": 25,
     "build_type": "Release",
     "build_dir": "build-android",
     "ndk_path": "",
