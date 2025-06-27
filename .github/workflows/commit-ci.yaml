@@ -22,19 +22,17 @@ jobs:
         with:
           submodules: recursive
           fetch-depth: 0
-
-      - name: Fetch JNI cache
-        uses: actions/cache@v4
+      - name: Restore JNI cache
         if: ${{ !github.event.inputs.clean }}
-        id: jni-cache
+        id: cache-jni-restore
+        uses: actions/cache/restore@v4
         with:
           path: |
             build-android
             boost
-          key: "jni-${{ github.sha }}"
+          key: ${{ runner.os }}-jni
 
       - name: Fetch submodules
-        if: ${{ !steps.jni-cache.outputs.cache-hit }}
         run: |
           git submodule update --init --recursive
 
@@ -52,11 +50,6 @@ jobs:
         with:
           java-version: "17"
           distribution: "temurin"
-
-      - name: Setup Android NDK
-        uses: nttld/setup-ndk@v1
-        with:
-          ndk-version: r25
 
       - name: Setup cmake
         uses: jwlawson/actions-setup-cmake@v2
@@ -87,3 +80,25 @@ jobs:
           path: artifacts
           # keep 90 days
           retention-days: 90
+
+      - name: Compress artifacts
+        run: |
+          cd artifacts
+          zip -r librime_jni.zip include lib
+
+      - name: Release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "prebuilt"
+          prerelease: true
+          files: artifacts/librime_jni.zip
+
+      - name: Save JNI cache
+        id: cache-jni-save
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            build-android
+            boost
+          key: ${{ runner.os }}-jni
