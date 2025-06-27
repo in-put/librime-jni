@@ -98,7 +98,7 @@ jobs:
       - name: Compress artifacts
         run: |
           cd artifacts
-          zip -r prebuilt.zip include lib
+          zip -r prebuilt.zip include lib opencc
 
       - name: Release
         uses: "marvinpinto/action-automatic-releases@latest"
