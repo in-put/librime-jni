@@ -210,8 +210,7 @@ def format_code(args):
     # 执行格式化
     print(f"格式化 {len(source_files)} 个文件...")
     for file in source_files:
-        if args.verbose:
-            print(f"格式化: {file}")
+        print(f"格式化: {file}")
         subprocess.call(format_cmd + [str(file)])
 
     print("格式化完成")
@@ -222,7 +221,6 @@ def main():
         description="Android NDK 跨平台构建工具",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
-    parser.add_argument("--verbose", action="store_true", help="显示详细输出")
 
     # 子命令
     subparsers = parser.add_subparsers(dest="command", required=True)
