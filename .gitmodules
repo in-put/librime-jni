@@ -23,3 +23,6 @@
 [submodule "snappy"]
 	path = snappy
 	url = https://github.com/google/snappy.git
+[submodule "librime-qjs"]
+	path = librime-qjs
+	url = https://github.com/HuangJian/librime-qjs
