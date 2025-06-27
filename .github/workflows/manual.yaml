@@ -8,18 +8,22 @@ on:
         default: false
         required: false
         type: boolean
+      v8a_only:
+        description: "Only build for arm64-v8a"
+        default: false
+        required: false
+        type: boolean
 
 jobs:
   build:
     runs-on: ubuntu-24.04
-    env:
-      BUILD_ABI: armeabi-v7a,arm64-v8a,x86,x86_64
     steps:
       - name: Fetch source code
         uses: actions/checkout@v4
         with:
           submodules: recursive
           fetch-depth: 0
+
       - name: Restore JNI cache
         if: ${{ !github.event.inputs.clean }}
         id: cache-jni-restore
@@ -58,12 +62,15 @@ jobs:
         run: python3 make.py build --arch arm64-v8a
 
       - name: Build armeabi-v7a
+        if: ${{ !github.event.inputs.v8a_only }}
         run: python3 make.py build --arch armeabi-v7a
 
       - name: Build x86
+        if: ${{ !github.event.inputs.v8a_only }}
         run: python3 make.py build --arch x86
 
       - name: Build x86_64
+        if: ${{ !github.event.inputs.v8a_only }}
         run: python3 make.py build --arch x86_64
 
       - run: |
@@ -89,6 +96,7 @@ jobs:
 
       - name: Release
         uses: "marvinpinto/action-automatic-releases@latest"
+        if: ${{ !github.event.inputs.v8a_only }}
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "prebuilt"
