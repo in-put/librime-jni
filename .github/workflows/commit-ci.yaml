@@ -40,7 +40,8 @@ jobs:
 
       - name: Apply pathches
         run: |
-          # Apply patches for librime-qjs
+          git config --global user.email "cxprcn@gmail.com"
+          git config --global user.name "nopdan"
           cd librime-qjs
           git am ../0001-librime-qjs.patch
           cd ../librime/deps/opencc
