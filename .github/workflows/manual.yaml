@@ -1,4 +1,4 @@
-name: Commit
+name: Manual Build and Release
 
 on:
   workflow_dispatch:
@@ -9,8 +9,6 @@ on:
         required: false
         type: boolean
 
-env:
-  CI_NAME: Commit CI
 jobs:
   build:
     runs-on: ubuntu-24.04
